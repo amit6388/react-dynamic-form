@@ -1,31 +1,30 @@
 import React from 'react';
-import DynamicForm from './Component/DynamicForm';
-import * as Yup from 'yup';
-import "bootstrap/dist/css/bootstrap.css";
-
+import "bootstrap/dist/css/bootstrap.min.css"
+import * as Yup from 'yup'; 
+import DynamicForm from 'dynamic-react-forms';
 const formConfig = [
   // 1st Row: 2 Input Text
   [
     {
       name: 'username',
-      type: 'text',
+      type: 'email',
       placeholder: 'Enter your username',
       className: 'username-field',
       readOnly: false,
       hidden: false,
       value: '', // Default value
-      yup: [Yup.string().required('Username is required').min(5, 'Minimum 5 characters').max(15, 'Maximum 15 characters')],
+      yup: [Yup.string().email("sahi dall be").required('Username is required').min(5, 'Minimum 5 characters').max(15, 'Maximum 15 characters')],
     },
-    {
-      name: 'email',
-      type: 'email',
-      placeholder: 'Enter your email',
-      className: 'email-field',
-      readOnly: false,
-      hidden: false,
-      value: '', // Default value
-      yup: [Yup.string().required('Email is required').email('Invalid email address')],
-    },
+      {
+        name: 'email',
+        type: 'email',
+        placeholder: 'Enter your email',
+        className: 'email-field',
+        readOnly: false,
+        hidden: false,
+        value: '', // Default value
+        yup: [Yup.string().required('Email is required').email('Invalid email address')],
+      },
   ],
   // 2nd Row: 3 Input Number
   [
@@ -73,7 +72,11 @@ const formConfig = [
       readOnly: false,
       hidden: false,
       value: '', // Default value
-      yup: [Yup.mixed().required('Profile picture is required')],
+      yup: [Yup.mixed().required('Resume is required').test(
+        'fileSize',
+        'File size is too large (Max 2MB)',
+        value => !value || (value && value[0].size <= 2000000)
+      )],
     },
     {
       name: 'file',
@@ -144,6 +147,25 @@ const formConfig = [
       value: '', // Default value
       yup: [Yup.string().required('Feedback is required')],
     },
+    {
+      name: 'feedback1',
+      type: 'textarea',
+      placeholder: 'Your feedback',
+      className: 'feedback-field',
+      readOnly: false,
+      hidden: false,
+      value: '', // Default value
+      yup: [Yup.string().required('Feedback is required')],
+    }, {
+      name: 'feedback3',
+      type: 'textarea',
+      placeholder: 'Your feedback',
+      className: 'feedback-field',
+      readOnly: false,
+      hidden: false,
+      value: '', // Default value
+      yup: [Yup.string().required('Feedback is required')],
+    }
   ],
 ];
 
@@ -153,9 +175,13 @@ const handleSubmit = (data) => {
 
 function App() {
   return (
-    <div className="container mt-5">
-      <DynamicForm formConfig={formConfig} onSubmit={handleSubmit} />
+    <>
+    <div className='row p-3'>
+   
+    <DynamicForm formConfig={formConfig} onSubmit={handleSubmit} /> 
+    
     </div>
+    </>
   );
 }
 

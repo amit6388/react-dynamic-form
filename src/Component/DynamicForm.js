@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-
+import "bootstrap/dist/css/bootstrap.min.css"
 const DynamicForm = ({ formConfig, onSubmit }) => {
   // Generate Yup schema dynamically based on formConfig
   const validationSchema = Yup.object().shape(
@@ -35,7 +35,7 @@ const DynamicForm = ({ formConfig, onSubmit }) => {
                           field.type === 'textarea' ? (
                             <textarea
                               placeholder={field.placeholder}
-                              className={`form-control ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
+                              className={`form-control w-100 ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
                               readOnly={field.readOnly}
                               {...controllerField}
                             />
@@ -43,7 +43,7 @@ const DynamicForm = ({ formConfig, onSubmit }) => {
                             <input
                               type={field.type}
                               placeholder={field.placeholder}
-                              className={`form-control ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
+                              className={`form-control w-100 ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
                               readOnly={field.readOnly}
                               {...controllerField}
                             />
@@ -68,7 +68,7 @@ const DynamicForm = ({ formConfig, onSubmit }) => {
                             type="number"
                             placeholder={field.placeholder}
                             min={field.minValue} // Corrected prop
-                            className={`form-control ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
+                            className={`form-control w-100 ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
                             readOnly={field.readOnly}
                             {...controllerField}
                           />
@@ -89,7 +89,7 @@ const DynamicForm = ({ formConfig, onSubmit }) => {
                         defaultValue={field.value}
                         render={({ field: controllerField }) => (
                           <select
-                            className={`form-control ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
+                            className={`form-control w-100 ${errors[field.name] ? 'is-invalid' : ''} ${field.className || ''}`}
                             readOnly={field.readOnly}
                             {...controllerField}
                           >
@@ -113,9 +113,13 @@ const DynamicForm = ({ formConfig, onSubmit }) => {
           ))}
         </div>
       ))}
-      <button type="submit" className="btn btn-primary">Submit</button>
+      
+      {/* Center the button */}
+      <div className="d-flex justify-content-center">
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </div>
     </form>
   );
 };
 
-export default DynamicForm; 
+export default DynamicForm;
